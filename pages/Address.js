@@ -1,9 +1,9 @@
-import { useState} from 'react';
+/* import { useState} from 'react';
 import TextInput from "../components/inputs/TextInput";
-import { useFormikContext  } from 'formik';
+import { useFormikContext  } from 'formik'; */
 
 function Address() {
-    const formikContext = useFormikContext();
+/*     const formikContext = useFormikContext();
     const [data, setData] = useState("");
     const [isLoading, setLoading] = useState(false)
 
@@ -18,12 +18,12 @@ function Address() {
     const handleClick = (event) => {
         event.preventDefault();
         fetchData();
-    };
+    }; */
 
     return (
         <div>        
             <h2>Address</h2>
-            <TextInput
+{/*             <TextInput
                 label="Postcode"
                 name="postcode"
                 type="text"
@@ -31,7 +31,7 @@ function Address() {
                 />
             <p>{isLoading ? "Loading..." : null}</p>
             <p>{!data ? "No data" : data.name}</p>
-            <button type="button" onClick={handleClick}>Find address</button>
+            <button type="button" onClick={handleClick}>Find address</button> */}
         </div>
     )
 }
