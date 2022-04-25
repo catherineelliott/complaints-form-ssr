@@ -2,7 +2,7 @@ import { useState} from 'react';
 import TextInput from "../components/inputs/TextInput";
 import { useFormikContext  } from 'formik';
 
-function AddressLookup() {
+function Address() {
     const formikContext = useFormikContext();
     const [data, setData] = useState("");
     const [isLoading, setLoading] = useState(false)
@@ -36,4 +36,4 @@ function AddressLookup() {
     )
 }
 
-export default AddressLookup
+export default Address
