@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import WhatDoYouWantToDo from './WhatDoYouWantToDo';
 import Contact from "./Contact";
 import AddressLookup from './Address'
-import Summary from './Summary';
+//import Summary from './Summary';
 
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage, FormikConfig, FormikValues, useFormikContext  } from 'formik';
@@ -22,6 +22,7 @@ const description = "meta description";
 
 const Complaints = () => {
   const router = useRouter();
+  
 
   return (
     <Layout title={title} description={description}>
@@ -93,7 +94,7 @@ const Complaints = () => {
           <AddressLookup/> 
         </FormikStep>
         <FormikStep>
-          <Summary/>
+            <Summary/>
         </FormikStep>
         </FormikStepper>
     </Layout>
@@ -132,6 +133,21 @@ export function FormikStepper({children, ...props}) {
     </Form>
   </Formik>
   );
+}
+
+function Summary() {
+  const formikContext = useFormikContext();
+    return (
+        <div>        
+            <h2>Summary</h2>
+            <ul>
+                <li>What Do You Want To Do: {formikContext.values.whatDoYouWantToDo}</li>
+                <li>Name: {formikContext.values.contactName}</li>
+                <li>Email: {formikContext.values.email}</li>
+                <li>Postcode: {formikContext.values.postcode}</li>
+            </ul>
+        </div>
+    )
 }
 
 export default Complaints;
