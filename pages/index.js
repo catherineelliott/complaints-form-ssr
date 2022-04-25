@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import WhatDoYouWantToDo from './WhatDoYouWantToDo';
 import Contact from "./Contact";
-import AddressLookup from './addresslookup'
+import AddressLookup from './AddressLookup'
 import Summary from './Summary';
 
 import React from 'react';
@@ -57,7 +57,28 @@ const Complaints = () => {
             whatDoYouWantToDo: Yup.string()
               .required('Required')
           })}>
-          <WhatDoYouWantToDo/>
+          <div>
+        <div id="whatDoYouWantToDo-radio-group">What do you want to do today?</div>
+        <div role="group" aria-labelledby="whatDoYouWantToDo-radio-group">
+          <label>
+            <Field type="radio" name="whatDoYouWantToDo" value="TakeAction" />
+            Request the council take action
+          </label>
+          <label>
+            <Field type="radio" name="whatDoYouWantToDo" value="Compliment" />
+            Give a compliment
+          </label>
+          <label>
+            <Field type="radio" name="whatDoYouWantToDo" value="Feedback" />
+            Provide some feedback
+          </label>
+          <label>
+            <Field type="radio" name="whatDoYouWantToDo" value="Complaint" />
+            Make a complaint
+          </label>
+          <ErrorMessage name="whatDoYouWantToDo" />
+        </div>
+      </div>
         </FormikStep>
         <FormikStep 
           validationSchema={Yup.object({

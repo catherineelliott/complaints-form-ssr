@@ -7,28 +7,7 @@ import { Field, Form, ErrorMessage } from "formik";
 function WhatDoYouWantToDo() {
     
     return (
-      <div>
-        <div id="whatDoYouWantToDo-radio-group">What do you want to do today?</div>
-        <div role="group" aria-labelledby="whatDoYouWantToDo-radio-group">
-          <label>
-            <Field type="radio" name="whatDoYouWantToDo" value="TakeAction" />
-            Request the council take action
-          </label>
-          <label>
-            <Field type="radio" name="whatDoYouWantToDo" value="Compliment" />
-            Give a compliment
-          </label>
-          <label>
-            <Field type="radio" name="whatDoYouWantToDo" value="Feedback" />
-            Provide some feedback
-          </label>
-          <label>
-            <Field type="radio" name="whatDoYouWantToDo" value="Complaint" />
-            Make a complaint
-          </label>
-          <ErrorMessage name="whatDoYouWantToDo" />
-        </div>
-      </div>
+      <div>hi</div>
     );
   }
 
