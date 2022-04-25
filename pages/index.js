@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TextInput from "../components/inputs/TextInput";
+import Contact from "./Contact";
 
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage, FormikConfig, FormikValues, useFormikContext  } from 'formik';
@@ -17,7 +18,7 @@ const Complaints = () => {
   
 
   return (
-        <Formik initialValues={{ email: ''}}
+        <Formik initialValues={{ email: '', contactName: ''}}
         validationSchema={Yup.object({
           contactName: Yup.string()
               .max(15, 'Must be 15 characters or less')
@@ -33,13 +34,8 @@ const Complaints = () => {
         >
           {formik => (
             <form onSubmit={formik.handleSubmit}>
-              <label htmlFor="email">Email Address</label>
-              <input id="email" type="email" {...formik.getFieldProps('email')} />
-              {formik.touched.email && formik.errors.email ? (
-                <div>{formik.errors.email}</div>
-              ) : null}
-    
-              <TextInput label="Contact name" name="contactName" type="text" placeholder=""/>
+              <Contact formikProp={formik}/>
+
               <button type="submit">Submit</button>
             </form>
           )}
