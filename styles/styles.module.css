@@ -1,0 +1,85 @@
+.container {
+  padding: 3rem;
+  width: 600px;
+  border-radius: 4px;
+}
+.container h1 {
+  font-size: 2rem;
+  color: #293241;
+  margin-bottom: 2rem;
+}
+.container h2 {
+  color: #293241;
+  margin-bottom: 1rem;
+}
+.container label, .container input {
+  color: #293241;
+}
+.container label {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.container input {
+  border: 2px solid rgba(29, 53, 87, 0.8);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  padding-left: 1rem;
+  font-size: 1rem;
+}
+.container .formRow {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+.container button:not(.back) {
+  color: #fff;
+  width: 100%;
+  font-size: 1.4rem;
+  background: #1d3557;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  padding: 0.8rem 1.2rem;
+  margin-top: 0.5rem;
+}
+.container button:not(.back):hover {
+  background: rgba(29, 53, 87, 0.8);
+}
+.container button.back {
+  margin-right: 1rem;
+  padding: 0.3rem;
+  cursor: pointer;
+}
+.container .input-error {
+  border-color: #e63946;
+}
+.container .error {
+  color: #e63946;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+}
+.container .disabled-btn {
+  cursor: not-allowed;
+  background: rgba(29, 53, 87, 0.8);
+}
+.container input[type="checkbox"] {
+  margin-right: 0.7rem;
+}
+.container .steps {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #293241;
+  font-size: 1.2rem;
+}
+.container .errorText {
+  color: #e63946;
+  font-size: 1.2rem;
+  margin-top: 0.4rem;
+  display: block;
+}
+.container .hideForm {
+  display: none;
+}
+.container .showForm {
+  display: block;
+}

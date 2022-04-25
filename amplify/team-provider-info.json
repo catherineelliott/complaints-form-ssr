@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-complaintsformssr-dev-154112-authRole",
+      "UnauthRoleArn": "arn:aws:iam::045478893864:role/amplify-complaintsformssr-dev-154112-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::045478893864:role/amplify-complaintsformssr-dev-154112-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-complaintsformssr-dev-154112-deployment",
+      "UnauthRoleName": "amplify-complaintsformssr-dev-154112-unauthRole",
+      "StackName": "amplify-complaintsformssr-dev-154112",
+      "StackId": "arn:aws:cloudformation:eu-west-1:045478893864:stack/amplify-complaintsformssr-dev-154112/c4ede750-bfee-11ec-b7d6-0a1a8d3f0281",
+      "AmplifyAppId": "d2ms3g83xgqw7w"
+    }
+  }
+}
