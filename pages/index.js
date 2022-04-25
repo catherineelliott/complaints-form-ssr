@@ -34,9 +34,8 @@ const Complaints = () => {
         >
           {formik => (
             <form onSubmit={formik.handleSubmit}>
-            <Contact/> 
-              {/* <Contact formikProp={formik}/> 
-              <TextInput label="Contact name" name="contactName" type="text" placeholder=""/>*/}
+               <Contact formikProp={formik}/> 
+              {/*<TextInput label="Contact name" name="contactName" type="text" placeholder=""/>*/}
               <button type="submit">Submit</button>
             </form>
           )}
