@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import WhatDoYouWantToDo from './WhatDoYouWantToDo';
-import Contact from "./Contact";
+import Contact from "../components/Contact";
 import AddressLookup from './Address'
 //import Summary from './Summary';
 

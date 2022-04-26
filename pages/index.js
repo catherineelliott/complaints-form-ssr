@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TextInput from "../components/inputs/TextInput";
-/* import Contact from "./Contact"; */
+import Contact from "../components/Contact";
 
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage, FormikConfig, FormikValues, useFormikContext  } from 'formik';
@@ -34,8 +34,9 @@ const Complaints = () => {
         >
           {formik => (
             <form onSubmit={formik.handleSubmit}>
-               {/* <Contact formikProp={formik}/> */} 
-              <TextInput label="Contact name" name="contactName" type="text" placeholder=""/>
+            <Contact/>
+               {/* <Contact formikProp={formik}/>  
+              <TextInput label="Contact name" name="contactName" type="text" placeholder=""/>*/}
               <button type="submit">Submit</button>
             </form>
           )}
