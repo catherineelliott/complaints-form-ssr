@@ -1,9 +1,7 @@
-import { Field, Form, ErrorMessage } from "formik";
+/*  import { useField  } from 'formik';*/
 import TextInput from "../components/inputs/TextInput"; 
 
-export default function Contact(props) {
-    const {formik} = props
-    //console.log('props', props)
+export default function Contact() {
     return (
     <div>
          <h1>Contact details</h1>
