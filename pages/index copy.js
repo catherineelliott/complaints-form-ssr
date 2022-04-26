@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import WhatDoYouWantToDo from './WhatDoYouWantToDo';
+import WhatDoYouWantToDo from '../components/WhatDoYouWantToDo';
 import Contact from "../components/Contact";
-import AddressLookup from './Address'
+import AddressLookup from '../components/Address'
 //import Summary from './Summary';
 
 import React from 'react';
@@ -90,12 +90,12 @@ const Complaints = () => {
           })}>
           <Contact/>
         </FormikStep>
-        <FormikStep>
+{/*         <FormikStep>
           <AddressLookup/> 
         </FormikStep>
         <FormikStep>
             <Summary/>
-        </FormikStep>
+        </FormikStep> */}
         </FormikStepper>
     </Layout>
   );
