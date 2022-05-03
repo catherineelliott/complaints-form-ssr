@@ -1,7 +1,8 @@
 import React from 'react';
 import TextInput from "./inputs/TextInput"; 
 
-export default function Contact() {
+export default function Contact(props) {
+  console.log('contact props', props)
     return (
     <div>
          <h1>Contact details</h1>
