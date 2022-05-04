@@ -18,7 +18,9 @@ Amplify.configure({ ...awsExports, ssr: true });
 import axios from 'axios';
 
 const Complaints = () => {
-
+  const x = () => {
+    console.log('x')
+  }
   return (
     <FormikStepper 
       initialValues={{ whatDoYouWantToDo: '', contactYesNo: '', contactName: '', email: '' }}
@@ -68,24 +70,61 @@ const Complaints = () => {
 };
 
 export function FormikStep({ children, ...props }) {
-/*   console.log('children',children)
-  console.log('props',props) */
   return <>{children}</>
 }
 
-export function FormikStepper({ children, ...props }) {
 
-  const pageArray = ['WhatDoYouWantToDo']
+
+export function FormikStepper({ children, ...props }) {
   
-  const childrenArray = React.Children.toArray(children);
+  const [route, setRoute] = useState([0]);
+  const [page, setPage] = useState(0);
   const [step, setStep] = useState(0);
-  const currentChild = childrenArray[step];
+
+  const childrenArray = React.Children.toArray(children);
+  const currentChild = childrenArray[page];
 
   const [hasServerError, setHasServerError] = useState(false);
   const [serverErrorMessage, setServerErrorMessage] = useState("");
 
-  function isLastStep() {
-    return step === childrenArray.length - 1;
+  const isLastPage = () => {
+    //might need to check another way
+    return page === childrenArray.length - 1;
+  } 
+
+  const fetchRoute = async (values) => {
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(  {currentPage: page, values: values  //can we just get values for current page?
+      } )  
+    };
+    await fetch('api/getNextPage', options)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data', data);
+        setPage(data.page)
+        setRoute((oldRoute) => [...oldRoute, data.page])
+      })
+  };
+
+  function nextPage (values,helpers) {
+    console.log('np route', route)
+    console.log('np page', page)
+    console.log('np step', step)
+    fetchRoute(values);
+    setStep(s => s + 1)
+    helpers.setTouched({});
+  }
+
+  function previousPage() {
+    console.log('pp route length', route.length)
+    console.log('pp route', route)
+    console.log('pp page', page)
+    console.log('pp step', step)
+    setPage(route[step - 1])
+    setStep(s => s - 1)
+    setRoute([...route.slice(0, route.length - 1),
+      ...route.slice(route.length)])
   }
 
   return (
@@ -94,50 +133,18 @@ export function FormikStepper({ children, ...props }) {
       validationSchema={currentChild.props.validationSchema}
       onSubmit={async (values, helpers) => {
         console.log('submit', values)
-        if (isLastStep()) {
-          await props.onSubmit(values, helpers); //calls parent when on last step
+        if (isLastPage(page,childrenArray)) {
+          await props.onSubmit(values, helpers); //calls parent when on last page
         }
         else {
-          if (step === 2) {
-            const api = 'https://8hxshe9w7g.execute-api.us-east-1.amazonaws.com/dev/contact';
-            const data = { "contactName": values.contactName };
-            axios
-              .post(api, data)
-              .then((response) => {
-                console.log('resp ', response);
-                //Would fix routes
-                //if (values.whatDoYouWantToDo === "Complaint" && step === 0) {
-                //  setStep(2);
-                //}
-                //else {
-                  setStep(s => s + 1);
-                //}
-               // helpers.setTouched({});
-              })
-              .catch((error) => {
-                console.log('error ', error.response);
-                setHasServerError(true);
-                setServerErrorMessage("error.response.data");
-
-              });
-          } else {
-            //Would fix routes
-           // if (values.whatDoYouWantToDo === "Complaint" && step === 0) {
-           //   setStep(2);
-            //}
-            //else {
-             setStep(s => s + 1);
-           // }
-            
-          }
-          helpers.setTouched({});
+              nextPage(values,helpers)          
         }
       }}>
       <Form>
-        {step > 0 ? <button type="button" onClick={() => setStep(s => s - 1)}>Back</button> : null}
+        {step > 0 ? <button type="button" onClick={() => {previousPage()}}>Back</button> : null}
         {currentChild}
-        <div>Error: {serverErrorMessage}</div>
-        <button type="submit">{isLastStep() ? 'Submit' : 'Next'}</button>
+        <div>{serverErrorMessage}</div>
+        <button type="submit">{isLastPage(page,childrenArray) ? 'Submit' : 'Next'}</button>
       </Form>
     </Formik>
   );
