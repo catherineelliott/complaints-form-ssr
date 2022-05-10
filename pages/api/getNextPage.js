@@ -4,8 +4,8 @@ export default async function getNextPage(req, res) {
 
     switch(data.currentPage) {
         case 1:
-            if (data.values.contactYesNo === 'No')
-                nextPage = 3
+            if (data.values.contactYesNo === "false")
+                nextPage = 4
           break;
         case 6:
           // code block

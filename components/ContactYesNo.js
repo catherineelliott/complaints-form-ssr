@@ -8,11 +8,11 @@ function ContactYesNo() {
         <div id="contactYesNo-radio-group"></div>
         <div role="group" aria-labelledby="contactYesNo-radio-group">
           <label>
-            <Field type="radio" name="contactYesNo" value="Yes" />
+            <Field type="radio" name="contactYesNo" value="true" />
             Yes
           </label>
           <label>
-            <Field type="radio" name="contactYesNo" value="No" />
+            <Field type="radio" name="contactYesNo" value="false" />
             No
           </label>
           <ErrorMessage name="contactYesNo" />

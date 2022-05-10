@@ -8,6 +8,7 @@ import WhatDoYouWantToDo from "../components/WhatDoYouWantToDo";
 import Contact from "../components/Contact";
 import ContactYesNo from "../components/ContactYesNo";
 import Summary from "../components/Summary";
+import Address from "../components/Address";
 import styles from "../styles/styles.module.css";
 
 import { Amplify } from 'aws-amplify';
@@ -23,8 +24,9 @@ const Complaints = () => {
   }
   return (
     <FormikStepper 
-      initialValues={{ whatDoYouWantToDo: '', contactYesNo: '', contactName: '', email: '' }}
+      initialValues={{ whatDoYouWantToDo: '', contactYesNo: '', contactName: '', email: '', postcode: '', address: '' }}
       onSubmit={async (values, { setSubmitting }) => {
+        
         console.log(JSON.stringify(values, null, 2));
         const res = await fetch('api/submitToBizTalk',
           //'https://integration.leeds.gov.uk/someendpoint',
@@ -44,39 +46,39 @@ const Complaints = () => {
     >
         <WhatDoYouWantToDo validationSchema={Yup.object({
           whatDoYouWantToDo: Yup.string()
-                        .required('Required')
+                        .required('Please choose an option')
         })}
         />
         <ContactYesNo validationSchema={Yup.object({
-          contactYesNo: Yup.string()
-                        .required('Required')
+          contactYesNo: Yup.boolean()
+                        .required('Please choose an option')
         })}
         />
-      <FormikStep
+      <Contact
         validationSchema={Yup.object({
-          contactName: Yup.string()
-                        .max(15, 'Must be 15 characters or less')
-                        .required('Required'),
+          contactName: Yup.string().max(15, 'Must be 15 characters or less')
+                        .required('Required'),                      
           email: Yup.string().email('Invalid email address').required('Required'),
-        })}>
-          <Contact page="2" />
-      </FormikStep>
-      <FormikStep>
-        <Summary/>
-      </FormikStep>
+        })}
+       />
+       <Address
+         validationSchema={Yup.object({
+          postcode: Yup.string().matches(/[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}/gi, 'Invalid postcode format') //Get correct regex
+                        .required('Required'),
+        })}
+       />
+      <Summary/>
       {/* <Contact formikProp={formik}/>  */}
     </FormikStepper>
   );
 };
 
-export function FormikStep({ children, ...props }) {
+/* export function FormikStep({ children, ...props }) {
   return <>{children}</>
-}
-
-
+} */
 
 export function FormikStepper({ children, ...props }) {
-  
+
   const [route, setRoute] = useState([0]);
   const [page, setPage] = useState(0);
   const [step, setStep] = useState(0);
@@ -117,7 +119,6 @@ export function FormikStepper({ children, ...props }) {
   }
 
   function previousPage() {
-    console.log('pp route length', route.length)
     console.log('pp route', route)
     console.log('pp page', page)
     console.log('pp step', step)
@@ -133,7 +134,15 @@ export function FormikStepper({ children, ...props }) {
       validationSchema={currentChild.props.validationSchema}
       onSubmit={async (values, helpers) => {
         console.log('submit', values)
+        console.log('submit', props)
         if (isLastPage(page,childrenArray)) {
+          //Better to store as json and loop through
+          if (values.contactYesNo == "false") {
+            //setFieldValue('contactName', null, false);  //Not sure if need to do this?            
+            values.contactName = "";
+            values.email = "";
+          }
+          console.log('submit 2', values)
           await props.onSubmit(values, helpers); //calls parent when on last page
         }
         else {
