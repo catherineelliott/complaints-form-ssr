@@ -8,7 +8,7 @@ export default function handler(req, res) {
   // in the command line where next.js app is running.
   console.log('body: ', body)
 
-  if (!body.contactName) {
+  if (!body.contactName && body.contactYesNo === "Yes") {
     // Sends a HTTP bad request error code
     return res.status(400).json({ data: 'Contact name not found' })
   }
