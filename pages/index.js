@@ -5,6 +5,7 @@ import { Formik, Field, Form, ErrorMessage, FormikConfig, FormikValues, useFormi
 import * as Yup from 'yup';
 
 import WhatDoYouWantToDo from "../components/WhatDoYouWantToDo";
+import EnquiryDetails from "../components/EnquiryDetails";
 import Contact from "../components/Contact";
 import ContactYesNo from "../components/ContactYesNo";
 import Summary from "../components/Summary";
@@ -24,7 +25,7 @@ const Complaints = () => {
   }
   return (
     <FormikStepper
-      initialValues={{ whatDoYouWantToDo: '', contactYesNo: '', contactName: '', email: '', postcode: '', address: '' }}
+      initialValues={{ whatDoYouWantToDo: '', yourStory: '', outcome: '', contactYesNo: '', contactName: '', contactByEmail: false, email: '', contactByTelephone: false, telephone: '', postcode: '', address: '' }}
       onSubmit={async (values, { setSubmitting }) => {
 
         console.log(JSON.stringify(values, null, 2));
@@ -49,22 +50,47 @@ const Complaints = () => {
           .required('Please choose an option')
       })}
       />
+      <EnquiryDetails
+        validationSchema={Yup.object({
+          yourStory: Yup.string().max(100, 'Must be 100 characters or less')
+            .required('Required'),
+          outcome: Yup.string().max(100, 'Must be 100 characters or less'),
+        })}
+      />
       <ContactYesNo validationSchema={Yup.object({
+        contactByEmail: Yup.boolean(),
         contactYesNo: Yup.string()
           .required('Please choose an option')
       })}
       />
       <Contact
-        validationSchema={Yup.object({
+        validationSchema={Yup.object().shape({
           contactName: Yup.string().max(15, 'Must be 15 characters or less')
             .required('Required'),
-          email: Yup.string().email('Invalid email address').required('Required'),
+          contactByEmail: Yup.boolean()
+          .when("contactByTelephone", {
+            is: (contactByTelephone) => !contactByTelephone,
+            then: Yup.bool().oneOf([true], "At least one needs to be checked")
+          }),
+          email: Yup.string().email('Invalid email address')
+          .when("contactByEmail", {
+              is: (contactByEmail) => contactByEmail === true,
+              then: Yup.string().required('This field is required')
+          }),
+          contactByTelephone: Yup.boolean(),
+          telephone: Yup.string().matches(/^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/,'Please enter a valid UK contact number (either landline format or mobile format)')
+          .when("contactByTelephone", {
+              is: (contactByTelephone) => contactByTelephone === true,
+              then: Yup.string().required('This field is required')
+          }),
         })}
       />
       <Address
         validationSchema={Yup.object({
           postcode: Yup.string().matches(/[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}/gi, 'Invalid postcode format') //Get correct regex
             .required('Required'),
+            address: Yup.string()
+            .required('Please select an address'),
         })}
       />
       <Summary />
@@ -150,7 +176,6 @@ export function FormikStepper({ children, ...props }) {
         console.log('submit', values)
         console.log('submit', props)
         if (isLastPage(page, childrenArray)) {
-          console.log('submit 2', values)
           await props.onSubmit(values, helpers); //calls parent when on last page
         }
         else {
@@ -161,7 +186,7 @@ export function FormikStepper({ children, ...props }) {
         {step > 0 ? <button type="button" onClick={() => { previousPage() }}>Back</button> : null}
         {currentChild}
         <div>{serverErrorMessage}</div>
-        <button type="submit">{isLastPage(page, childrenArray) ? 'Submit' : 'Next'}</button>
+        <button type="submit">{isLastPage(page, childrenArray) ? 'Submit' : 'Continue'}</button>
       </Form>
     </Formik>
   );

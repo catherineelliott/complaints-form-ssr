@@ -7,6 +7,8 @@ function Summary() {
         <h2>Summary</h2>
         <ul>
              <li>What Do You Want To Do: {formikContext.values.whatDoYouWantToDo}</li>
+             <li>Your story: {formikContext.values.yourStory}</li>
+             <li>Outcome: {formikContext.values.outcome}</li>
             <li>Name: {formikContext.values.contactName}</li>
             <li>Email: {formikContext.values.email}</li>
             <li>Postcode: {formikContext.values.postcode}</li> 
