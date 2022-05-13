@@ -1,6 +1,6 @@
 import { Field, ErrorMessage } from "formik";
 
-function ContactYesNo() {
+function ContactYesNo(props) {
     
     return (
       <div>

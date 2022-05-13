@@ -3,10 +3,12 @@ import Link from 'next/link';
 
 import styles from '../styles/layout.module.css';
 
-const Layout = (props) => {
-
-    const { title, description, children } = props
+//const Layout = (props) => {
+export default function Layout({ children }) {
+    //const { title, description, children } = props
+    const title = 'Let us know'
     const siteTitle = 'leeds.gov.uk'
+    const description = "Leeds City Council - 'Do It Online' Portal."
 
     return (
         <div className={styles.container}>
@@ -42,4 +44,4 @@ const Layout = (props) => {
     )
 }
 
-export default Layout
+//export default Layout

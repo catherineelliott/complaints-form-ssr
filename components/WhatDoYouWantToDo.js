@@ -5,7 +5,7 @@
 import { Field, Form, ErrorMessage } from "formik";
 import RadioInput from "./inputs/RadioInput"; 
 
-function WhatDoYouWantToDo() {
+function WhatDoYouWantToDo(props) {
     
     return (
       <div>

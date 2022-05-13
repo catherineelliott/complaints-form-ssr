@@ -1,6 +1,6 @@
 import { useFormikContext  } from 'formik';
 
-function Summary() {
+function Summary(props) {
   const formikContext = useFormikContext();
   return (
     <div>        

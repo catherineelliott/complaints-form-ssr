@@ -3,7 +3,7 @@ import { useState } from "react";
 import TextInput from "./inputs/TextInput";
 import { useFormikContext, ErrorMessage } from 'formik';
 
-function Address() {
+function Address(props) {
     const formikContext = useFormikContext();
     const [data, setData] = useState("");
     const [isLoading, setLoading] = useState(false);

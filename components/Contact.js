@@ -3,7 +3,7 @@ import CheckboxInput from "./inputs/CheckboxInput";
 import TextInput from "./inputs/TextInput"; 
 import { useFormikContext, ErrorMessage } from 'formik';
 
-export default function Contact() {
+export default function Contact(props) {
   const formikContext = useFormikContext();
 
   return (

@@ -109,9 +109,12 @@ export function FormikStepper({ children, ...props }) {
   const [step, setStep] = useState(0);
 
   const childrenArray = React.Children.toArray(children);
+  console.log('childrenArray', childrenArray)
   //const currentChild = childrenArray[0];
   const childrenFilteredArray = childrenArray.filter(obj => { return obj.type.name === page });
+  console.log('childrenFilteredArray', childrenFilteredArray)
   const currentChild = childrenFilteredArray[0];
+  console.log('currentChild', currentChild)
 
   const [hasServerError, setHasServerError] = useState(false);
   const [serverErrorMessage, setServerErrorMessage] = useState("");
